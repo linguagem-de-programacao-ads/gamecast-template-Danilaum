@@ -1,5 +1,5 @@
 async function buscar(){
-    console.log("passei por aqui")
+
     const resposta = await fetch("https://660f44cb356b87a55c511007.mockapi.io/agendas")
 const respostaDadosAgenda = await resposta.json();
     console.log("Resposta", respostaDadosAgenda)
@@ -8,9 +8,34 @@ const respostaDadosAgenda = await resposta.json();
 
 
 cards.innerHTML= respostaDadosAgenda.map((itemAgenda)=>{
-return "TESTE "
-    });
+return ` <div class="cardItem">
+<div class="dataGame"> 
+    <img src="../imagens/calendar-solid.svg" alt=""> ${itemAgenda.dataJogo}
+</div>
+<img class="img-background" src="${itemAgenda.urlImage}" alt="">
+<div class="descricao">
+    <p> <strong>${itemAgenda.nome}</strong> </p>
+    <p> ${itemAgenda.descricao}</p>
+    <p><strong>Gamers: </strong></p>
+
+    <div class="gamers">
+    ${
+        itemAgenda.gamers.map((gamerItem)=>{
+            return `
+            <div class="gamerItem">${gamerItem}</div>`
+        }).join('')
+    }
+
+ 
+    </div>
+
+  
+</div>  
+<div class="assistir">
+        <a class="assistirItem"> <img src="../imagens/youtube.svg" alt=""> Assistir </a>
+</div>
+</div>`
+    }).join('');
 }
-console.log("Antes de passar")
+
 buscar();
-console.log("depois de passar")
